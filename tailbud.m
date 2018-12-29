@@ -35,23 +35,30 @@ p = 0.3;
 grid = zeros(size(tb));
 i = 1;
 cell_size = 13;
-for j = 1:size(tb,1)/cell_size
+for j = 3:size(tb,1)/cell_size
     for k = 1:size(tb,2)/cell_size
         if ( rand() < p )
-           grid((j-1)*cell_size+1:j*cell_size,(k-1)*cell_size+1:k*cell_size) = i;
+           dim1=0;
+           if(mod(k,2)==0)
+               dim1=6;
+           end
+           grid((j-2)*cell_size+1+dim1:(j-1)*cell_size+dim1,(k-1)*cell_size+1:k*cell_size) = i;
            i = i+1;
         end
     end
 end
 
 currcell = max(grid(:)) + 1;
-for j = 1:15
+for j = 3:15
     for k = 1:14
-        grid(end-12*j+1:end-12*(j-1),111+12*(k-1):111+12*k - 1) = currcell;
+       dim1=0;
+       if(mod(k,2)==0)
+           dim1=6;
+       end
+        grid(end-12*(j-1)+1+dim1:end-12*(j-2)+dim1,111+12*(k-1):111+12*k - 1) = currcell;
         currcell = currcell + 1;
     end
 end
-
 
 grid(tb == borderValue) = -1;
 imshow(grid);
@@ -71,11 +78,11 @@ Temperature = 20;
 videoWrite = 1;
 
 if (videoWrite)
-    v = VideoWriter('C:\Users\Matt\Desktop\CPM_tailbud.avi','Motion JPEG AVI');
+    v = VideoWriter('C:\Users\Daniel\Desktop\CPM_tailbud.avi','Motion JPEG AVI');
     open(v);
 end
 
-Max_Act = 60;
+Max_Act = 80;
 lambda_Act = 4000;
 
 A0 = 180;
@@ -86,7 +93,7 @@ p = p(p ~= -1);
 newp = p;
 volume = vol(grid);
 newv = volume;
-% gca = figure(1);
+gca = figure(1);
 % for j = 1:20
 %     j
 %     tailbudI = find(grid ~= borderValue);
@@ -169,7 +176,7 @@ newv = volume;
 activities = zeros(size(grid));
 activities(grid > 0) = Max_Act;
 
-for j = 173:1825
+for j = 1:3000
     j
     tic
     tailbudI = find(grid ~= borderValue);
@@ -255,7 +262,7 @@ for j = 173:1825
     
     activities(activities ~= 0) = activities(activities ~= 0) - 1;
     if ( mod(j, 50) == 0 )
-        grid = padarray(grid, 13, 0, 'post');
+        grid = padarray(grid, 18, 0, 'post');
         tb = grid;
         tb(292:end,92) = borderValue;
         tb(292:end,111) = borderValue;
@@ -268,7 +275,11 @@ for j = 173:1825
         grid = tb;
         currcell = max(grid(:)) + 1;
         for k = 1:14
-            grid(end-12:end,111+12*(k-1):111+12*k - 1) = currcell;
+            dim1 = 0;
+            if(mod(k, 2) == 0)
+                dim1 = 6;
+            end
+            grid(end-18+dim1:end-6+dim1,111+12*(k-1):111+12*k - 1) = currcell;
             currcell = currcell + 1;
         end
         
@@ -278,8 +289,8 @@ for j = 173:1825
         volume = vol(grid);
         newv = volume;
         
-        activities = padarray(activities, 13, 0, 'post');
-        activities(end-12:end,111:278) = Max_Act;
+        activities = padarray(activities, 18, 0, 'post');
+        activities(end-18:end,111:278 & grid ~= 0) = Max_Act;
     end
     toc
 end
