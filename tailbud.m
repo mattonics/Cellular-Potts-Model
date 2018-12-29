@@ -20,8 +20,6 @@ y = R*sin(th) + center(1);
 tb(sub2ind(size(tb),round(y)',round(x)')) = borderValue;
 tb(sub2ind(size(tb),round(y)'-1,round(x)')) = borderValue;
 
-tb(end,:) = borderValue;
-
 imshow(tb)
 for i = 1:size(tb,2)
     col = tb(:,i);
@@ -290,7 +288,9 @@ for j = 1:3000
         newv = volume;
         
         activities = padarray(activities, 18, 0, 'post');
-        activities(end-18:end,111:278 & grid ~= 0) = Max_Act;
+        temp_mask = zeros(size(activities));
+        temp_mask(end-18:end, 111:278) = 1;
+        activities(temp_mask & grid ~= 0) = Max_Act;
     end
     toc
 end
