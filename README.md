@@ -1,8 +1,10 @@
 # Cellular-Potts-Model
 An implementation of Cell Movement, Cell Migration, and Zebrafish Tailbud Extension Using Cellular Potts Model in Matlab (click the images)
-https://youtu.be/v0DvHIlUrzc
+
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/t275kJ1ukXs/0.jpg)](https://youtu.be/t275kJ1ukXs)
+
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/v0DvHIlUrzc/0.jpg)](https://youtu.be/v0DvHIlUrzc)
+
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/mms8z7odN0E/0.jpg)](https://youtu.be/mms8z7odN0E)
 
 1. Download the files from https://github.com/mattonics/Cellular-Potts-Model/.
